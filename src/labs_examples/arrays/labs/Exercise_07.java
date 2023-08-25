@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Exercise_07 {
     public static void main(String[] args) {
-        ArrayList<String> listOfGuests = new ArrayList<String>() {{
+        ArrayList<String> listOfGuests = new ArrayList<>() {{
             add("Hendrik");
             add("Chris");
             add("Dennis");
