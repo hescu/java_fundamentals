@@ -10,7 +10,7 @@ public class MethodTraining {
     public static void main(String[] args) {
         String stringo = "Herberto";
         int[] testArray = {-4, 5, 66, 8374, -3452, 200};
-        ArrayList<Integer> resultArrayList = new ArrayList<>();
+        ArrayList<Integer> resultArrayList;
         String[] someNames = {"Hendrik", "Peter", "Josh", "Xi", "Gerhard", "Norm", "Geraldine", "Jaqueline"};
 
         //1
@@ -20,7 +20,6 @@ public class MethodTraining {
         // 2
         MethodTraining newObj = new MethodTraining();
         int num = 1234;
-        int num2 = 666;
         System.out.println("Before calling the method: " + num + "  " + newObj.xxx);
         changeValue(num, newObj);
         System.out.println("After calling the method: " + num + "  " + newObj.xxx);
@@ -79,8 +78,8 @@ public class MethodTraining {
         int counter = 0;
         char[] vowels = {'a', 'e', 'i', 'o', 'u'};
         for (int i = 0; i < str.length(); i++) {
-            for (int j = 0; j < vowels.length; j++) {
-                if (str.charAt(i) == vowels[j]) {
+            for (char vowel : vowels) {
+                if (str.charAt(i) == vowel) {
                     counter++;
                 }
             }
@@ -126,7 +125,7 @@ public class MethodTraining {
     length of the returned list */
 
     public static ArrayList<Integer> divisibleNums(int maxNum, int divisor1, int divisor2) {
-        ArrayList<Integer> resultArray = new ArrayList<Integer>();
+        ArrayList<Integer> resultArray = new ArrayList<>();
         for (int i = 1; i < maxNum; i++) {
             if (i % divisor1 == 0 && i % divisor2 == 0) {
                 resultArray.add(i);
@@ -140,7 +139,7 @@ public class MethodTraining {
         variable is used to temporarily store individual values in the array
  */
     public static void reverseArray (String[] stringArr) {
-        String temp = "";
+        String temp;
         for (int i = 0; i < stringArr.length / 2; i++) {
             temp = stringArr[i];
             stringArr[i] = stringArr[stringArr.length - i -1];
