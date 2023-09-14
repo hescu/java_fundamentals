@@ -1,7 +1,10 @@
 
 Without running the code below, please tell me what will print. Why?
 
-
+Answer:
+Parent called
+Child called
+When an object of a class is created, its superclass constructor is automatically called first.
 
 
 public class InheritanceTest

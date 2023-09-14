@@ -4,7 +4,7 @@ package labs_examples.objects_classes_methods.labs.oop.A_inheritance;
  * Run the class below and study the output. What prints and why?
  *
  * Your answer:
- *
+ * In this case, a is of type A, so it will access the i variable of class A. Therefore, it will print: 10. The reference type A determines which version of the member variable i to access.
  */
 class A {
     int i = 10;

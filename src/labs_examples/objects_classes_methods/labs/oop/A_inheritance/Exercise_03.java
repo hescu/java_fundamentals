@@ -4,7 +4,7 @@ package labs_examples.objects_classes_methods.labs.oop.A_inheritance;
  * Why does the output print in the order it does?
  *
  * You answer:
- *
+ *  Because the constructor of the superclass is always invoked first. C is a descendant of B and A, the constructor of A is invoked first, then it goes down the inheritance tree to B and lastly the constructor of C prints its line.
  */
 
 class A_1 {
