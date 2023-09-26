@@ -7,10 +7,12 @@ public class Player {
     Hand hand;
     int playerFunds; //the amount of money they have
     int madeBet;
-    boolean wantsAnotherCard = true;
-    boolean isDealer = false;
 
-    Scanner scanner = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
+
+    public Player(){
+        this.hand = new Hand();
+    }
 
     public Player(String name, int playerFunds) {
         this.name = name;
@@ -18,32 +20,22 @@ public class Player {
         this.playerFunds = playerFunds;
     }
 
-    public Player(String name, boolean isDealer) {
-        this.name = name;
-        this.hand = new Hand();
-        this.isDealer = isDealer;
-    }
-
     public int getHandValue() {
-        return hand.handValue;
-    }
-    public boolean computerAI () {
-        return this.hand.handValue < 16;
+        return hand.returnHandScore();
     }
 
-    public Boolean DoYouWantAnotherCard() {
-        if (!isDealer && wantsAnotherCard) {
+    public void printHandValue() {
+        System.out.println(this.name + "'s hand value: " + this.hand.returnHandScore());
+    }
+
+    public Boolean doYouWantAnotherCard() {
             System.out.print("Do you want another card? (y/n): ");
-            String anotherCard = scanner.next();
-            if (anotherCard.equals("n") || anotherCard.equals("no")) {
-                return false;
-            }
-        } else {
-            if (!computerAI()) {
-                return false;
-            }
-        }
+            String anotherCard = input.next();
+        return anotherCard.equals("y") || anotherCard.equals("yes");
+    }
 
-        return true;
+    public void makeBet() {
+        System.out.print("How much do you want to bet? ");
+        this.madeBet = Integer.parseInt(input.nextLine());
     }
 }

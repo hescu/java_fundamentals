@@ -1,17 +1,13 @@
 package labs_examples.objects_classes_methods.labs.oop.C_blackjack;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Deck {
-    Card[] cards;
-    ArrayList<Integer> usedCards;
+    List<Card> cards = new ArrayList<>();
 
     public Deck() {
-        this.cards = new Card[52];
         populateDeck();
-        usedCards = new ArrayList<>();
+        shuffleDeck();
     }
 
     public void populateDeck() {
@@ -20,7 +16,7 @@ public class Deck {
             int cardValue = 1;
             int cardValueName = 1;
             for (int x = 0; x < 13; x++) {
-                this.cards[cardCounter] = new Card(i, cardValue, getCardName(cardValueName));
+                cards.add(cardCounter, new Card(i, cardValue, getCardName(cardValueName)));
                 if (cardValue < 10) {
                     cardValue++;
                 }
@@ -28,6 +24,10 @@ public class Deck {
                 cardValueName++;
             }
         }
+    }
+
+    public void shuffleDeck() {
+        Collections.shuffle(cards);
     }
 
     public String getCardName(int cardValueName) {
@@ -49,21 +49,6 @@ public class Deck {
     }
 
     public void deal(Player player) {
-        Random random = new Random();
-        int randomNum = 0;
-        if (this.cards != null) {
-            do randomNum = random.nextInt(52); while (usedCards.contains(randomNum));
-            player.hand.cards.add(this.cards[randomNum]);
-            usedCards.add(randomNum);
-        }
-        player.hand.returnHandScore();
-        if (!player.isDealer || player.hand.cards.size() <= 1) {
-            printCardsDealt(randomNum, player);
-        }
-    }
-
-    public void printCardsDealt(int i, Player p) {
-        System.out.println("Player " + p.name + " got " + cards[i].suit + " " + cards[i].cardValue + " " + cards[i].cardName);
-        System.out.println("Player " + p.name + " hand value: " + p.hand.returnHandScore());
+        player.hand.cards.add(cards.remove(0));
     }
 }

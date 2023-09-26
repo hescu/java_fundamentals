@@ -4,15 +4,13 @@ import java.util.*;
 
 public class Table {
     ArrayList<Player> playersAtTable = new ArrayList<>();
-    ArrayList<Player> playersInGame = new ArrayList<>();
     Scanner input = new Scanner (System.in);
-    Player dealer;
+    Dealer dealer;
     int maxBetAtTable;
 
     public Table(int maxBetAtTable) {
         this.maxBetAtTable = maxBetAtTable;
-        this.dealer = new Player("Dealer", true);
-        this.playersAtTable.add(dealer);
+        this.dealer = new Dealer();
     }
 
     public void NewPlayerEnters() {
@@ -25,30 +23,27 @@ public class Table {
     }
 
     public boolean checkIfBusted (Player player) {
-        if (player.isDealer && player.hand.handValue > 21) {
-            System.out.println("The Dealer busts. All players win!");
-            return false;
-        } else if (!player.isDealer && player.getHandValue() > 21) {
-          //  playersInGame.remove(player);
-          //  playersAtTable.remove(player);
-            return true;
-        }
-
-        return false;
+        return player.getHandValue() > 21;
     }
+
     public void checkForWinner() {
-        if (playersInGame.size() > 1) {
-            for (Player p : playersInGame) {
-                if (!p.isDealer && p.getHandValue() > playersInGame.get(0).getHandValue()) {
+        for (Player p : playersAtTable) {
+            if (checkIfBusted(p)) {
+                System.out.println(p.name + " lost!");
+                break;
+            }
+            System.out.println("The dealer's score: " + dealer.getHandValue());
+            if (dealer.didDealerBust()) {
+                System.out.println("The dealer busts.");
+            } else {
+                if (p.getHandValue() > dealer.getHandValue()) {
                     System.out.println(p.name + " won!");
-                } else if (!p.isDealer && p.getHandValue() == playersInGame.get(0).getHandValue()) {
+                } else if (p.getHandValue() < dealer.getHandValue()) {
+                    System.out.println(p.name + " lost");
+                } else {
                     System.out.println("It's a draw.");
-                } else if (!p.isDealer && p.getHandValue() < playersInGame.get(0).getHandValue()) {
-                    System.out.println(p.name + " lost.");
                 }
             }
-        } else {
-            System.out.println("The dealer wins.");
         }
     }
 
@@ -58,10 +53,5 @@ public class Table {
         if (answer.equals("no") || answer.equals("No") || answer.equals("n")) {
             playersAtTable.remove(player);
         }
-    }
-
-    public void Betting(Player player) {
-        System.out.print("How much do you want to bet? ");
-        player.madeBet = Integer.parseInt(input.nextLine());
     }
 }
