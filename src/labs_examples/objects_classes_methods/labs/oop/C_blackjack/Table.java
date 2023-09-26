@@ -30,6 +30,7 @@ public class Table {
         for (Player p : playersAtTable) {
             if (checkIfBusted(p)) {
                 System.out.println(p.name + " lost!");
+                p.playerFunds -= p.madeBet;
                 break;
             }
             System.out.println("The dealer's score: " + dealer.getHandValue());
@@ -38,19 +39,22 @@ public class Table {
             } else {
                 if (p.getHandValue() > dealer.getHandValue()) {
                     System.out.println(p.name + " won!");
+                    p.playerFunds += p.madeBet;
                 } else if (p.getHandValue() < dealer.getHandValue()) {
                     System.out.println(p.name + " lost");
+                    p.playerFunds -= p.madeBet;
                 } else {
                     System.out.println("It's a draw.");
                 }
             }
+            System.out.println(p.name + "'s funds: " + p.playerFunds);
         }
     }
 
-    public void DoesPlayerWantToContinue(Player player) {
-        System.out.println("Do you want to continue playing? (yes/no)");
+    public void DoesPlayerWantToQuit(Player player) {
+        System.out.println("Do you want to quit? (yes/no)");
         String answer = input.next();
-        if (answer.equals("no") || answer.equals("No") || answer.equals("n")) {
+        if (answer.equals("y") || answer.equals("yes") || answer.equals("Yes")) {
             playersAtTable.remove(player);
         }
     }

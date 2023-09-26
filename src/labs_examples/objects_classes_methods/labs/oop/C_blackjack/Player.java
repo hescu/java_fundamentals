@@ -35,7 +35,7 @@ public class Player {
     }
 
     public void makeBet() {
-        System.out.print("How much do you want to bet? ");
-        this.madeBet = Integer.parseInt(input.nextLine());
+        System.out.print("How much do you want to bet? Current funds: " + this.playerFunds);
+        this.madeBet = Integer.parseInt(input.next());
     }
 }
