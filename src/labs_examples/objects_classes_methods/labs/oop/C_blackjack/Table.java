@@ -7,6 +7,7 @@ public class Table {
     Scanner input = new Scanner (System.in);
     Dealer dealer;
     int maxBetAtTable;
+    static int gamesPlayed = 0;
 
     public Table(int maxBetAtTable) {
         this.maxBetAtTable = maxBetAtTable;
@@ -31,18 +32,23 @@ public class Table {
             if (checkIfBusted(p)) {
                 System.out.println(p.name + " lost!");
                 p.playerFunds -= p.madeBet;
+                dealer.gamesWon++;
                 break;
             }
             System.out.println("The dealer's score: " + dealer.getHandValue());
             if (dealer.didDealerBust()) {
                 System.out.println("The dealer busts.");
+                p.gamesWon++;
+                p.playerFunds += p.madeBet;
             } else {
                 if (p.getHandValue() > dealer.getHandValue()) {
                     System.out.println(p.name + " won!");
                     p.playerFunds += p.madeBet;
+                    p.gamesWon++;
                 } else if (p.getHandValue() < dealer.getHandValue()) {
                     System.out.println(p.name + " lost");
                     p.playerFunds -= p.madeBet;
+                    dealer.gamesWon++;
                 } else {
                     System.out.println("It's a draw.");
                 }
@@ -57,5 +63,11 @@ public class Table {
         if (answer.equals("y") || answer.equals("yes") || answer.equals("Yes")) {
             playersAtTable.remove(player);
         }
+    }
+
+    public void printGamesWon(Player player) {
+        System.out.println("Games played: " + gamesPlayed);
+        System.out.println("Games won by dealer: " + dealer.gamesWon);
+        System.out.println("Games won by " + player.name + ": " + player.gamesWon);
     }
 }

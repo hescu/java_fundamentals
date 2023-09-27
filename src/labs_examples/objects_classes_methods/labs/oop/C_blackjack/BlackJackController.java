@@ -47,6 +47,7 @@ public class BlackJackController {
             table1.checkForWinner();
 
             for (int i = 0; i < table1.playersAtTable.size(); i++) {
+                table1.printGamesWon(table1.playersAtTable.get(i));
                 table1.DoesPlayerWantToQuit(table1.playersAtTable.get(i));
             }
         } while (!table1.playersAtTable.isEmpty());

@@ -7,6 +7,7 @@ public class Player {
     Hand hand;
     int playerFunds; //the amount of money they have
     int madeBet;
+    int gamesWon = 0;
 
     Scanner input = new Scanner(System.in);
 
@@ -35,7 +36,7 @@ public class Player {
     }
 
     public void makeBet() {
-        System.out.print("How much do you want to bet? Current funds: " + this.playerFunds);
+        System.out.print("How much do you want to bet? Current funds: " + this.playerFunds + ">>>> ");
         this.madeBet = Integer.parseInt(input.next());
     }
 }
