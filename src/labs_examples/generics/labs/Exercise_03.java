@@ -41,7 +41,7 @@ class Exercise_03 {
         String[] stringArray = {"Batman", "Rorschach", "Deadpool", "Wonder Woman", "Jinx", "Bill Murray", "Krach-Bumm-Ente"};
         System.out.println("3) " + Arrays.toString(Generika.switchElements(stringArray, 2, 5)));
 
-        System.out.println("4) " + Generika.findLargestElement(stringList, 1, 7));
+        System.out.println("4) " + Generika.findLargestElement(stringList));
     }
 }
 
@@ -80,7 +80,7 @@ class Generika {
         return arr;
     }
 
-    public static <T extends Comparable<T>> Optional<T> findLargestElement(List<T> list, int begin, int end) {
+    public static <T extends Comparable<T>> Optional<T> findLargestElement(List<T> list) {
         return list.stream().max(Comparator.naturalOrder());
     }
 }
