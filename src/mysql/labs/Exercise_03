@@ -5,16 +5,156 @@
 *   Now that you have your air travel database all set up and populated, please demonstrate how to:
 *
 *       1.) Query all flights on a specific day
+            select * from flights where date(departure_time) = '2023-11-12'
+
 *       2.) Query all flights between two specific cities on a specific day
+            SELECT
+                f.flight_id,
+                f.departure_location_id AS departure_location_id,
+                dep.location_name AS departure_city,
+                f.arrival_location_id AS arrival_location_id,
+                arr.location_name AS arrival_city,
+                f.departure_time,
+                f.arrival_time
+            FROM
+                flights f
+            JOIN
+                locations dep ON f.departure_location_id = dep.location_id
+            JOIN
+                locations arr ON f.arrival_location_id = arr.location_id
+            WHERE
+                dep.location_name = 'New York' AND arr.location_name = 'London'
+                OR dep.location_name = 'London' AND arr.location_name = 'New York'
+                AND DATE(f.departure_time) = '2023-11-10';
+
 *       3.) Query all passengers on a specific flight between two specific cities today
+            SELECT
+            	p.passengers_id AS passenger_id,
+                p.first_name AS first_name,
+                p.last_name AS last_name,
+                f.flight_id,
+                dep.location_name AS departure_city,
+                arr.location_name AS arrival_city,
+                f.departure_time,
+                f.arrival_time
+            FROM
+                flights f
+            JOIN
+            	tickets t ON f.flight_id = t.flight_id
+            JOIN
+            	passengers p ON p.passengers_id = t.passenger_id
+            JOIN
+                locations dep ON f.departure_location_id = dep.location_id
+            JOIN
+                locations arr ON f.arrival_location_id = arr.location_id
+            WHERE
+                dep.location_name = 'New York' AND arr.location_name = 'London'
+                OR dep.location_name = 'London' AND arr.location_name = 'New York'
+                AND DATE(f.departure_time) = CURDATE();
+
 *       4.) Query the flight information for a specific passenger on a specific flight
+            SELECT
+            	p.passenger_id,
+                p.passenger_name,
+                p.seat_number,
+                f.flight_id,
+                f.departure_location_id,
+                dep.location_name AS departure_city,
+                f.arrival_location_id,
+                arr.location_name AS arrival_city,
+                f.departure_time,
+                f.arrival_time
+            FROM
+            	flights f
+            JOIN
+            	tickets t ON f.flight_id = t.flight_id
+            JOIN
+            	passengers p ON p.passengers_id = t.passenger_id
+            WHERE
+            	f.flight_id = 1 AND p.passengers_id = 1;
+
 *       5.) Query the passenger information for a specific user on a specific flight yesterday
+            SELECT
+                p.passenger_id,
+                p.passenger_name,
+                p.seat_number,
+                f.flight_id,
+                f.departure_location_id,
+                dep.location_name AS departure_city,
+                f.arrival_location_id,
+                arr.location_name AS arrival_city,
+                f.departure_time,
+                f.arrival_time
+            FROM
+                passengers p
+            JOIN
+                flights f ON p.flight_id = f.flight_id
+            JOIN
+                locations dep ON f.departure_location_id = dep.location_id
+            JOIN
+                locations arr ON f.arrival_location_id = arr.location_id
+            WHERE
+                p.passenger_id = 'specific_user_id'
+                AND DATE(f.departure_time) = DATE_SUB(CURDATE(), INTERVAL 1 DAY);
+
 *       6.) Query the number of flights between two specific cities this week, month, and year
+            select count(*) as num_of_flights
+            from flights f
+            where
+            	departure_location_id = 1 and arrival_location_id = 2
+            	or departure_location_id = 2 and departure_location_id = 1
+            	AND yearweek(f.departure_time, 1) = yearweek(CURDATE(), 1);
+
+            select count(*) as num_of_flights
+            from flights f
+            where
+                departure_location_id = 1 and arrival_location_id = 2
+                or departure_location_id = 2 and departure_location_id = 1
+                AND YEAR(departure_time) = YEAR(CURDATE())
+                AND MONTH(departure_time) = MONTH(CURDATE());
+
+            select count(*) as num_of_flights
+            from flights f
+            where
+                departure_location_id = 1 and arrival_location_id = 2
+                or departure_location_id = 2 and departure_location_id = 1
+                AND YEAR(departure_time) = YEAR(CURDATE());
+
 *       7.) Query the number of passengers that travelled between two specific cities today, this week, month and year
+            select count(*) as num_of_passengers
+            from passengers p
+            join tickets t on t.passenger_id = p.passengers_id
+            join flights f on f.flight_id = t.flight_id
+            where
+            	f.departure_location_id = 1 and f.arrival_location_id = 2
+            	or f.departure_location_id = 2 and f.departure_location_id = 1
+            	AND yearweek(f.departure_time, 1) = yearweek(CURDATE(), 1);
+            	/
+            	AND YEAR(departure_time) = YEAR(CURDATE());
+            	/
+            	AND YEAR(departure_time) = YEAR(CURDATE())
+                AND MONTH(departure_time) = MONTH(CURDATE());
+
 *       8.) Insert records for new flights between airports
+            INSERT INTO `airtravel`.`flights` (`plane_id`, `departure_location_id`, `arrival_location_id`, `departure_time`, `arrival_time`, `airline_id`, `pilot_id`)
+            VALUES ('104', '3', '2', '2023-11-13 15:00:00', '2023-11-13 21:30:00', '3', '4');
+
 *       9.) Insert records for new tickets and passengers on specific flights
+            INSERT INTO `airtravel`.`passengers` (`first_name`, `last_name`, `date_of_birth`, `nationality`)
+            VALUES
+                ('Jane', 'Doe', '1976-12-01', 'UK');
+
+            SET @johnPassengerID = LAST_INSERT_ID();
+
+            INSERT INTO tickets (flight_id, passenger_id, seat_number, ticket_price, purchase_date)
+            VALUES
+                ('FlightID1', @johnPassengerID, 'A1', 245.67, 2023-11-13 12:12:13)
+
 *       10.) Update meal preference (or something similar) for a specific passenger on a specific flight
 *       Bonus: Have some fun - get creative - what else can you do? Flex those SQL muscles and show us what
 *           you've got! :)
-*
+
+*           update tickets
+            set meal_preference = 'vegan'
+            where passenger_id = 5
 */

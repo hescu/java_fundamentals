@@ -1,6 +1,3 @@
-package mysql.labs;
-
-
 /*
 *  MySQL Exercise 4:
 *
@@ -21,6 +18,12 @@ package mysql.labs;
 *
  */
 
+package mysql.labs;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
+
+
 public class Exercise_04 {
 
     public static void main(String[] args) {
@@ -37,11 +40,35 @@ public class Exercise_04 {
         queryPassenger(...);
         updatePassenger(...);
         deletePassenger(...);
-
-        ...
-
-
          */
+        Timestamp departureTime = new Timestamp(System.currentTimeMillis());
+        Timestamp arrivalTime = new Timestamp(System.currentTimeMillis() + 7200000);
+
+        Flight flight1 = new Flight(103, 3, 2, departureTime, arrivalTime, 2, 1);
+        FlightCRUD flight = new FlightCRUD(DataSourcePool.getDataSource());
+
+        flight.createFlight(flight1);
+
+        System.out.println(flight.queryFlight(3).toString());
+
+        int deletedRows = flight.deleteFlight(11);
+        System.out.println("Deleted rows: " + deletedRows);
+
+        int updatedRows = flight.updateFlight(8, flight1);
+        System.out.println("Updated rows: " + updatedRows);
+
+        LocalDate dateOfBirth = LocalDate.of(1967, 3, 26);
+        Passenger passenger = new Passenger("Jimbo", "Jones", "Canadian", dateOfBirth);
+        PassengerCRUD passengerCRUD = new PassengerCRUD();
+
+        passengerCRUD.createPassenger(passenger);
+
+        System.out.println(passengerCRUD.queryPassenger(2).toString());
+
+        System.out.println("Deleted rows: " + passengerCRUD.deletePassenger(1));
+
+        System.out.println("Updated rows: " + passengerCRUD.updatePassenger(4, passenger));
+
     }
 
 }
