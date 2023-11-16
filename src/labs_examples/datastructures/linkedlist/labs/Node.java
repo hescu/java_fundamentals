@@ -3,14 +3,11 @@ package labs_examples.datastructures.linkedlist.labs;
 public class Node<Number> {
     Number data;
     Node next;
+    Node prev;
 
     public Node(Number data) {
         this.data = data;
         this.next = null;
-    }
-
-    public Node(Number data, Node next) {
-        this.data = data;
-        this.next = next;
+        this.prev = null;
     }
 }
