@@ -18,3 +18,37 @@ package labs_examples.datastructures.stack.labs;
  *      TIP: To initialize a new array of a Generic type you can use this:
  *           T[] data = (T[]) new Object[10];
  */
+
+public class Exercise_02 {
+    public static void main(String[] args) throws IsEmptyException {
+        MyOwnCustomStack<String> myStack = new MyOwnCustomStack<>(String.class, 10);
+        myStack.push("Batman");
+        myStack.push("Rorschach");
+        myStack.push("Deadpool");
+        myStack.push("Wolverine");
+        myStack.push("Jean Grey");
+        myStack.push("Superman");
+        myStack.push("Catwoman");
+        myStack.push("Joker");
+        myStack.push("Wonder Woman");
+        myStack.push("Rogue");
+        myStack.push("Bill Murray");
+
+        myStack.printStack();
+        System.out.println("Size: " + myStack.size());
+        System.out.println("First element: " + myStack.peekFirst());
+        System.out.println("Last element: " + myStack.peekLast());
+
+        myStack.pop();
+        myStack.pop();
+        myStack.pop();
+        myStack.pop();
+        myStack.pop();
+        myStack.pop();
+        myStack.pop();
+
+        System.out.println("Size: " + myStack.size());
+        System.out.println("First element: " + myStack.peekFirst());
+        System.out.println("Last element: " + myStack.peekLast());
+    }
+}
