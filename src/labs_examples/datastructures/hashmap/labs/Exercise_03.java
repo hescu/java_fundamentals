@@ -103,10 +103,8 @@ public class Exercise_03 {
     private static void updateElements(Collection<Integer> collection, int count) {
         for (int i = 0; i < count; i++) {
             if (collection instanceof List) {
-                // For List implementations
                 ((List<Integer>) collection).set(i, i + 1);
             } else if (collection instanceof Map) {
-                // For Map implementations
                 ((Map<Integer, Integer>) collection).put(i, i + 1);
             }
         }
