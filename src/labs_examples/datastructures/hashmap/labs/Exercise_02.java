@@ -17,3 +17,21 @@ package labs_examples.datastructures.hashmap.labs;
  *      8) add at least one more method that you think could be useful to the HashMap
  *          review Java's built-in HashMap for inspiration
  */
+
+public class Exercise_02 {
+    public static void main(String[] args) {
+        MyCustomHashMap<Integer, String> myCustomHashMap = new MyCustomHashMap<>();
+        myCustomHashMap.add(1, "Mgla");
+        myCustomHashMap.add(2, "Bathory");
+        myCustomHashMap.add(3, "Blackbraid");
+        myCustomHashMap.add(4, "Darkthrone");
+        myCustomHashMap.add(5, "Emperor");
+        myCustomHashMap.add(6, "Burzum");
+
+        myCustomHashMap.isEmpty();
+        myCustomHashMap.printHashMap();
+        System.out.println("Get value: " + myCustomHashMap.getValue(4));
+        System.out.println("Update element: " + myCustomHashMap.updateElement(1, "Ulver"));
+
+    }
+}
